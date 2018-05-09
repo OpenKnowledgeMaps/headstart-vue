@@ -6,6 +6,8 @@
             style="display: block;"
             @mouseover="$emit('bubbleMouseEnter', bubbleId)"
             @mouseout="$emit('bubbleMouseLeave', bubbleId)"
+            @click="$emit('bubbleClick', bubbleId)"
+            @dblclick.prevent="$emit('bubbleDoubleClick', bubbleId)"
     >
 
         <path
@@ -25,6 +27,8 @@
                 :height="h"
                 @mouseover="$emit('bubbleMouseEnter', bubbleId)"
                 @mouseout="$emit('bubbleMouseLeave', bubbleId)"
+                @click="$emit('bubbleClick', bubbleId)"
+                @dblclick.prevent="$emit('bubbleDoubleClick', bubbleId)"
         >
             <body>
                 <div class="paper_holder">

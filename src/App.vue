@@ -15,6 +15,8 @@
                v-bind="paper"
                v-on:bubbleMouseEnter="onBubbleMouseEnter"
                v-on:bubbleMouseLeave="onBubbleMouseLeave"
+               v-on:bubbleClick="zoomD3"
+               v-on:bubbleDoubleClick="zoomOutD3"
         ></Paper>
     </Chart>
   </div>
@@ -87,10 +89,10 @@ export default {
         const circle = bubbleDOM.select("circle");
         const foreignObject = bubbleDOM.select("foreignObject");
         foreignObject.transition(bubbleTransition)
-          .attr("x", 0-0.5*Math.sqrt(2*TR*TR))
-          .attr("y", 0-0.5*Math.sqrt(2*TR*TR))
-          .attr("width", 0.5*Math.sqrt(2*TR*TR))
-          .attr("height", 0.5*Math.sqrt(2*TR*TR))
+          .attr("x", -0.5*Math.sqrt(2*TR*TR))
+          .attr("y", -0.5*Math.sqrt(2*TR*TR))
+          .attr("width", Math.sqrt(2*TR*TR))
+          .attr("height", Math.sqrt(2*TR*TR));
         circle.transition(bubbleTransition)
           .attr("r", TR);
 
@@ -132,10 +134,10 @@ export default {
         const circle = bubbleDOM.select("circle");
         const foreignObject = bubbleDOM.select("foreignObject");
         foreignObject.transition(bubbleTransition)
-          .attr("x", 0-0.5*Math.sqrt(2*TR*TR))
-          .attr("y", 0-0.5*Math.sqrt(2*TR*TR))
-          .attr("width", 0.5*Math.sqrt(2*TR*TR))
-          .attr("height", 0.5*Math.sqrt(2*TR*TR))
+          .attr("x", -0.5*Math.sqrt(2*TR*TR))
+          .attr("y", -0.5*Math.sqrt(2*TR*TR))
+          .attr("width", Math.sqrt(2*TR*TR))
+          .attr("height", Math.sqrt(2*TR*TR))
         circle.transition(bubbleTransition)
           .attr("r", TR);
 

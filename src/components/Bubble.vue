@@ -28,7 +28,7 @@
         >
             <body style="word-wrap: break-word;">
             <div id="area_title" :style="{width: inscribedSquareLength + 'px', height: inscribedSquareLength + 'px'}">
-                <h2 class="highlightable" style="font-size: 12px;">
+                <h2 class="highlightable" style="font-size: 12px;" v-show="!zoomedOut">
                     {{title}}
                 </h2>
             </div>
