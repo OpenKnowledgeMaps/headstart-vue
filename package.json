@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "d3": "^5.5.0",
+    "eslint-plugin-jest": "^21.17.0",
     "vue": "^2.5.16"
   },
   "devDependencies": {
@@ -28,8 +29,15 @@
     "root": true,
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
-    ]
+      "eslint:recommended",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "jest"
+    ],
+    "env": {
+      "jest/globals": true
+    }
   },
   "postcss": {
     "plugins": {

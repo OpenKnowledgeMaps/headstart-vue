@@ -15,7 +15,7 @@ describe('Chart', () => {
     expect(wrapper.find('svg').attributes().width).toBe("600");
   });
 
-  it('renders an svg chart with a given height and width', () => {
+  it('renders an svg chart with 0 height 0 width', () => {
     const wrapper = factory({height: 0, width: 0});
     expect(wrapper.contains('svg')).toEqual(true);
     expect(wrapper.find('svg').attributes().height).toBe("0");

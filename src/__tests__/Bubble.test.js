@@ -1,11 +1,5 @@
 import Bubble from '../components/Bubble';
-import { shallowMount, mount } from '@vue/test-utils';
-
-const factory = (values = {}) => {
-  return shallowMount(Chart, {
-    propsData: { ...values}
-  })
-};
+import { mount } from '@vue/test-utils';
 
 describe('Bubble', () => {
   it('renders a svg group element, a circle and a foreignobject according to its props', () => {

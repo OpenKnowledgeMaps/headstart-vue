@@ -1,11 +1,8 @@
 import App from '../App';
 import Bubble from '../components/Bubble';
-import { shallowMount, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 
 describe('App', () => {
-  it('can be mounted', () => {
-    const wrapper = mount(App);
-  });
   it('calls onBubbleMouseEnter if a bubbleMouseEnter signal is emitted', () => {
     const wrapper = mount(App);
     const bubbleWrapper = wrapper.find(Bubble);
