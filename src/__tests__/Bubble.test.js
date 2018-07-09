@@ -2,8 +2,9 @@ import Bubble from '../components/Bubble';
 import { mount } from '@vue/test-utils';
 
 describe('Bubble', () => {
-  it('renders a svg group element, a circle and a foreignobject according to its props', () => {
-    const wrapper = mount(Bubble, {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(Bubble, {
       propsData: {
         id: 0,
         x: 100,
@@ -12,6 +13,9 @@ describe('Bubble', () => {
         title: "Bubble Title",
         zoomedOut: true
       }});
+  });
+
+  it('renders a svg group element, a circle and a foreignobject according to its props', () => {
     expect(wrapper.find('g').exists()).toBe(true);
     expect(wrapper.find('circle').exists()).toBe(true);
     expect(wrapper.find('circle').attributes().r).toBe("30");
@@ -22,15 +26,6 @@ describe('Bubble', () => {
   });
 
   it('s circle element reacts to mouseover, mouseout, click and doubleclick events', () => {
-    const wrapper = mount(Bubble, {
-      propsData: {
-        id: 0,
-        x: 100,
-        y: 20,
-        r: 30,
-        title: "Bubble Title",
-        zoomedOut: true
-      }});
     const circleWrapper = wrapper.find('circle');
     circleWrapper.trigger('mouseover');
     expect(wrapper.emitted('bubbleMouseEnter')).toBeTruthy();
@@ -43,15 +38,6 @@ describe('Bubble', () => {
   });
 
   it('s foreignobject element reacts to mouseover, mouseout, click and doubleclick events', () => {
-    const wrapper = mount(Bubble, {
-      propsData: {
-        id: 0,
-        x: 100,
-        y: 20,
-        r: 30,
-        title: "Bubble Title",
-        zoomedOut: true
-      }});
     const foreignObjectWrapper = wrapper.find('foreignObject');
     foreignObjectWrapper.trigger('mouseover');
     expect(wrapper.emitted('bubbleMouseEnter')).toBeTruthy();
@@ -64,15 +50,6 @@ describe('Bubble', () => {
   });
 
   it('s title is not shown when zoomed out flag is set', () => {
-    const wrapper = mount(Bubble, {
-      propsData: {
-        id: 0,
-        x: 100,
-        y: 20,
-        r: 30,
-        title: "Bubble Title",
-        zoomedOut: true
-      }});
     expect(wrapper.find('h2').isVisible()).toBe(false);
     wrapper.setProps({zoomedOut: false});
     expect(wrapper.find('h2').isVisible()).toBe(true);
@@ -80,15 +57,6 @@ describe('Bubble', () => {
 
   //Snapshot Test!
   it('matches a previously made snapshot', () => {
-    const wrapper = mount(Bubble, {
-      propsData: {
-        id: 0,
-        x: 100,
-        y: 20,
-        r: 30,
-        title: "Bubble Title",
-        zoomedOut: true
-      }});
     expect(wrapper).toMatchSnapshot();
   })
 });
