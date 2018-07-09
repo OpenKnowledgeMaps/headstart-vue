@@ -25,19 +25,6 @@
     "vue-template-compiler": "^2.5.13",
     "vue-test-utils": "^1.0.0-beta.11"
   },
-  "babel": {
-    "presets": [
-      "@vue/app",
-      ["env", {"modules": false}]
-    ],
-    "env": {
-      "test": {
-        "presets": [
-          ["env", { "targets": { "node": "current" }}]
-        ]
-      }
-    }
-  },
   "eslintConfig": {
     "root": true,
     "extends": [
