@@ -27,8 +27,16 @@
   },
   "babel": {
     "presets": [
-      "@vue/app"
-    ]
+      "@vue/app",
+      ["env", {"modules": false}]
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          ["env", { "targets": { "node": "current" }}]
+        ]
+      }
+    }
   },
   "eslintConfig": {
     "root": true,
