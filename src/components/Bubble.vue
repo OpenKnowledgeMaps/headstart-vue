@@ -38,29 +38,29 @@
 </template>
 
 <script>
-  export default {
-    name: "Bubble",
-    props: {
-      id: Number,
-      x: Number,
-      y: Number,
-      r: Number,
-      title: String,
-      zoomedOut: Boolean
+export default {
+  name: 'Bubble',
+  props: {
+    id: Number,
+    x: Number,
+    y: Number,
+    r: Number,
+    title: String,
+    zoomedOut: Boolean,
+  },
+  computed: {
+    translateString() {
+      return `translate(${this.x},${this.y})`;
     },
-    computed: {
-      translateString: function() {
-        return "translate(" + this.x + "," + this.y + ")";
-      },
-      inscribedSquareLength: function () {
-        return Math.sqrt(2*this.r*this.r);
-      },
-      foreignObjectX: function() {
-        return -0.5*Math.sqrt(2*this.r*this.r);
-      },
-      foreignObjectY: function() {
-        return -0.5*Math.sqrt(2*this.r*this.r);
-      }
-    }
-  }
+    inscribedSquareLength() {
+      return Math.sqrt(2 * this.r * this.r);
+    },
+    foreignObjectX() {
+      return -0.5 * Math.sqrt(2 * this.r * this.r);
+    },
+    foreignObjectY() {
+      return -0.5 * Math.sqrt(2 * this.r * this.r);
+    },
+  },
+};
 </script>

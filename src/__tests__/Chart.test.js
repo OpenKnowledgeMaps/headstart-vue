@@ -1,18 +1,16 @@
-import Chart from '../components/Chart';
 import { shallowMount, mount } from '@vue/test-utils';
+import Chart from '../components/Chart';
 
-const factory = (values = {}) => {
-  return shallowMount(Chart, {
-    propsData: { ...values}
-  })
-};
+const factory = (values = {}) => shallowMount(Chart, {
+  propsData: { ...values },
+});
 
 describe('Chart', () => {
   it('renders an svg chart with a given height and width', () => {
-    const wrapper = factory({height: 600, width: 600});
+    const wrapper = factory({ height: 600, width: 600 });
     expect(wrapper.contains('svg')).toEqual(true);
-    expect(wrapper.find('svg').attributes().height).toBe("600");
-    expect(wrapper.find('svg').attributes().width).toBe("600");
+    expect(wrapper.find('svg').attributes().height).toBe('600');
+    expect(wrapper.find('svg').attributes().width).toBe('600');
   });
 
   it('initially has class zoomed_out', () => {
