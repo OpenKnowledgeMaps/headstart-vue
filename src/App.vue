@@ -39,7 +39,7 @@ export default {
       props: {
         payload: {
           type: Object,
-          default: () => ({ papers: [], bubbles: [] })
+          required: true
         }
       },
       data: function() {
@@ -48,8 +48,8 @@ export default {
                     svgWidth: 600,
                     zoomFactor: 1,
                     zoomed: false,
-                    papers: this.payload.papers,
-                    bubbles: this.payload.bubbles
+                    papers: JSON.parse(JSON.stringify(this.payload.papers)),
+                    bubbles: JSON.parse(JSON.stringify(this.payload.bubbles))
                 }
   },
   methods: {
@@ -60,94 +60,96 @@ export default {
       this.bubbles.find((bubble) => bubble.id === id).zoomedOut = false;
     },
     zoomD3: function(id) {
-      if (!this.zoomed) {
-        let bubble = this.bubbles.find((bubble) => bubble.id === id);
-        const TR = 200;
-        const FACT = TR/74.;
-        let bubbleTransition = transition().duration(300);
+      let bubble = this.bubbles.find((bubble) => bubble.id === id);
+      if (!this.zoomed || !bubble.selected) {
 
-        const bubbleDOM = select("#bubble1");
-        const circle = bubbleDOM.select("circle");
-        const foreignObject = bubbleDOM.select("foreignObject");
-        foreignObject.transition(bubbleTransition)
-          .attr("x", -0.5*Math.sqrt(2*TR*TR))
-          .attr("y", -0.5*Math.sqrt(2*TR*TR))
-          .attr("width", Math.sqrt(2*TR*TR))
-          .attr("height", Math.sqrt(2*TR*TR));
-        circle.transition(bubbleTransition)
-          .attr("r", TR);
-
-        let paper = this.papers.find((paper) => paper.bubbleId === id);
-        const domPaper = select("#paper0");
-        domPaper.select(".unframed")
-          .transition(bubbleTransition)
-          .attr("d", 'M ' + 0 + ' ' + 0 +
-            ' h ' + (0.9*paper.w*FACT) +
-            ' l ' + (0.1*paper.w*FACT) + ' ' + (0.1*paper.h*FACT) +
-            ' v ' + (0.9*paper.h*FACT) +
-            ' h ' + (-paper.w*FACT) +
-            ' v ' + (-paper.h*FACT));
-        domPaper.select(".dogear")
-          .transition(bubbleTransition)
-          .attr("d", "M " + (0 + 0.9*paper.w*FACT) + ' ' + 0 + " v " + (0.1*paper.h*FACT) + " h " + (0.1*paper.w*FACT));
-        domPaper.select(".paperContent")
-          .transition(bubbleTransition)
-          .attr("width", paper.w*FACT)
-          .attr("height", paper.h*FACT);
-
-        bubbleTransition.on("end", () => {
-          bubble.r = TR;
-          paper.w = paper.w*FACT;
-          paper.h = paper.h*FACT;
+        const ZOOMED_RADIUS = this.svgWidth * 0.33;
+        const FACTOR = ZOOMED_RADIUS / bubble.r;
+        const TRANSLATE_X = this.svgWidth * 0.5 - bubble.x * FACTOR;
+        const TRANSLATE_Y = this.svgHeight * 0.5 - bubble.y * FACTOR;
+        const params = { ZOOMED_RADIUS, FACTOR, TRANSLATE_X, TRANSLATE_Y };
+        this.zoomD3DOM(id, params, () => {
+          this.bubbles.forEach((bubble) => {
+            bubble.x = bubble.x*FACTOR + TRANSLATE_X;
+            bubble.y = bubble.y*FACTOR + TRANSLATE_Y;
+            bubble.r = bubble.r*FACTOR;
+            bubble.selected = false;
+          });
+          console.log("Zoom callback");
           this.zoomed = true;
+          bubble.selected = true;
         });
       }
     },
+
     zoomOutD3: function(id) {
+      let bubble = this.bubbles.find((bubble) => bubble.id === id);
       if (this.zoomed) {
-        let bubble = this.bubbles.find((bubble) => bubble.id === id);
-        const TR = 74.4123;
-        const FACT = TR/200.;
+        let originalBubble = this.payload.bubbles.find((obubble) => obubble.id === bubble.id);
 
-        let bubbleTransition = transition().duration(300);
-
-        const bubbleDOM = select("#bubble1");
-        const circle = bubbleDOM.select("circle");
-        const foreignObject = bubbleDOM.select("foreignObject");
-        foreignObject.transition(bubbleTransition)
-          .attr("x", -0.5*Math.sqrt(2*TR*TR))
-          .attr("y", -0.5*Math.sqrt(2*TR*TR))
-          .attr("width", Math.sqrt(2*TR*TR))
-          .attr("height", Math.sqrt(2*TR*TR))
-        circle.transition(bubbleTransition)
-          .attr("r", TR);
-
-        let paper = this.papers.find((paper) => paper.bubbleId === id);
-        const domPaper = select("#paper0");
-        domPaper.select(".unframed")
-          .transition(bubbleTransition)
-          .attr("d", 'M ' + 0 + ' ' + 0 +
-            ' h ' + (0.9*paper.w*FACT) +
-            ' l ' + (0.1*paper.w*FACT) + ' ' + (0.1*paper.h*FACT) +
-            ' v ' + (0.9*paper.h*FACT) +
-            ' h ' + (-paper.w*FACT) +
-            ' v ' + (-paper.h*FACT));
-        domPaper.select(".dogear")
-          .transition(bubbleTransition)
-          .attr("d", "M " + (0 + 0.9*paper.w*FACT) + ' ' + 0 + " v " + (0.1*paper.h*FACT) + " h " + (0.1*paper.w*FACT));
-        domPaper.select(".paperContent")
-          .transition(bubbleTransition)
-          .attr("width", paper.w*FACT)
-          .attr("height", paper.h*FACT);
-
-        bubbleTransition.on("end", () => {
-          bubble.r = TR;
-          paper.w = paper.w*FACT;
-          paper.h = paper.h*FACT;
+        const ZOOMED_RADIUS = originalBubble.r;
+        const FACTOR = ZOOMED_RADIUS / bubble.r;
+        const TRANSLATE_X = originalBubble.x - bubble.x*FACTOR;
+        const TRANSLATE_Y = originalBubble.y - bubble.y*FACTOR;
+        const params = { ZOOMED_RADIUS, FACTOR, TRANSLATE_X, TRANSLATE_Y };
+        this.zoomD3DOM(id, params, () => {
+          console.log("ZoomOut callback");
+          this.bubbles.forEach((bubble) => {
+            bubble.x = bubble.x*FACTOR + TRANSLATE_X;
+            bubble.y = bubble.y*FACTOR + TRANSLATE_Y;
+            bubble.r = bubble.r*FACTOR;
+            bubble.selected = false;
+          });
           this.zoomed = false;
         });
       }
-    }
+    },
+
+    zoomD3DOM: function(id, params, callback) {
+        let { FACTOR, TRANSLATE_X, TRANSLATE_Y } = params;
+
+        let bubbleTransition = transition().duration(300);
+        this.bubbles.forEach((bubble) => {
+            const bubbleDOM = select("#bubble"+bubble.id);
+            const circle = bubbleDOM.select("circle");
+            const foreignObject = bubbleDOM.select("foreignObject");
+
+            bubbleDOM.transition(bubbleTransition)
+              .attr("transform", 'translate(' + (bubble.x*FACTOR + TRANSLATE_X) + ',' + (bubble.y*FACTOR + TRANSLATE_Y) +  ')');
+            foreignObject.transition(bubbleTransition)
+              .attr("x",-0.5*Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r))
+              .attr("y",-0.5*Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r))
+              .attr("width", Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r))
+              .attr("height", Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r));
+            console.log(Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r));
+            circle.transition(bubbleTransition)
+              .attr("r", FACTOR*bubble.r);
+        });
+
+        // let paper = this.papers.find((paper) => paper.bubbleId === id);
+        // if (paper) {
+        //     const domPaper = select("#paper" + paper.id);
+        //     domPaper.select(".unframed")
+        //       .transition(bubbleTransition)
+        //       .attr("d", 'M ' + 0 + ' ' + 0 +
+        //         ' h ' + (0.9*paper.w*FACTOR) +
+        //         ' l ' + (0.1*paper.w*FACTOR) + ' ' + (0.1*paper.h*FACTOR) +
+        //         ' v ' + (0.9*paper.h*FACTOR) +
+        //         ' h ' + (-paper.w*FACTOR) +
+        //         ' v ' + (-paper.h*FACTOR));
+        //     domPaper.select(".dogear")
+        //       .transition(bubbleTransition)
+        //       .attr("d", "M " + (0 + 0.9*paper.w*FACTOR) + ' ' + 0 + " v " + (0.1*paper.h*FACTOR) + " h " + (0.1*paper.w*FACTOR));
+        //     domPaper.select(".paperContent")
+        //       .transition(bubbleTransition)
+        //       .attr("width", paper.w*FACTOR)
+        //       .attr("height", paper.h*FACTOR);
+        // }
+
+        bubbleTransition.on("end", () => {
+          callback();
+        });
+      }
   }
 }
 </script>
