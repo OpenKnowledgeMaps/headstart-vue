@@ -75,7 +75,6 @@ export default {
             bubble.r = bubble.r*FACTOR;
             bubble.selected = false;
           });
-          console.log("Zoom callback");
           this.zoomed = true;
           bubble.selected = true;
         });
@@ -93,7 +92,6 @@ export default {
         const TRANSLATE_Y = originalBubble.y - bubble.y*FACTOR;
         const params = { ZOOMED_RADIUS, FACTOR, TRANSLATE_X, TRANSLATE_Y };
         this.zoomD3DOM(id, params, () => {
-          console.log("ZoomOut callback");
           this.bubbles.forEach((bubble) => {
             bubble.x = bubble.x*FACTOR + TRANSLATE_X;
             bubble.y = bubble.y*FACTOR + TRANSLATE_Y;
@@ -121,7 +119,6 @@ export default {
               .attr("y",-0.5*Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r))
               .attr("width", Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r))
               .attr("height", Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r));
-            console.log(Math.sqrt(2*FACTOR*FACTOR*bubble.r*bubble.r));
             circle.transition(bubbleTransition)
               .attr("r", FACTOR*bubble.r);
         });
