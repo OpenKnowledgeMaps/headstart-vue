@@ -32,8 +32,6 @@
   }
 </script>
 
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     svg {
         border: 1px #000 solid;
