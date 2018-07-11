@@ -2,7 +2,7 @@
 # Contributing to Open Knowledge Maps
 Please take a moment to review this document in order to make the contribution process easy and effective for everyone involved.
 Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
-As for everything else in the project, the contributions to Open Knowledge Maps are governed by our Code of Conduct.
+As for everything else in the project, the contributions to Open Knowledge Maps are governed by our [Code of Conduct](https://openknowledgemaps.org/community-guidelines).
 
 ## Using the issue tracker
 The issue tracker is the preferred channel for bug reports, features requests and submitting pull requests. Please do not use the issue tracker for personal support requests. For that, please write an email to info@openknowledgemaps.org.
@@ -28,7 +28,7 @@ What do you think should happen?
 What actually happens?
 ##### How to reproduce
 1. Detailed steps.
-2. <url> - a link to the reduced test case
+2. <url> - a link to the reduced test case, or image.
 3. Any other information you want to share that is relevant to the issue being reported. This might include the lines of code that you have identified as causing the bug, and potential solutions.
 
 ### Feature requests
@@ -41,8 +41,8 @@ The current state, why this new feature is needed.
 ##### Suggested path
 How to tackle this - if possible.
 
-After the Open Knowledge Team will notice the new issue, it will be labled “analyse”, if there should be a discussion about it. Otherwise, or after we agree on it, it will labeled “implementation”.
-If you want to solve an issue from the list, please make sure it’s labled “implementation” and not “in review”. If you’re not sure weather to start or not, please ask in the issue page.
+After the Open Knowledge Team will notice the new issue, it will be labled "discussion", if there should be a discussion about it. Otherwise, or after we agree on it, it will be labeled “implementation”.
+If you want to solve an issue from the list, please make sure it’s labled “implementation” and not “in review”. If you’re not sure wether to start or not, please ask in the issue page.
 
 ## Pull requests
 Good pull requests - bug fixes, improvements, new features - are a fantastic help. They should remain focused in scope and avoid containing unrelated commits.
@@ -108,7 +108,7 @@ git push --force-with-lease make-modal-draggable
 
 ### Reviewing changes
 Please make sure that the new issue is necessary to the project. Reviewing PRs, approving them, and then maintaining new features can take a lot from our time and energy. So - even when a new feature or bug fix seems “yeah, why not”, please take under consideration the energy it will take.
-Please label the new issue as “analyse”, if it’s still in discussion, and - “implementation” when it’s ready to be written. Please add also “good first issue”, “frontend”/“backend” and so on, to help contributors find issues that fit their skills.
+Please label the new issue as “discussion”, if it’s still in discussion, and - “implementation” when it’s ready to be written. Please add also “good first issue”, “frontend”/“backend” and so on, to help contributors find issues that fit their skills.
 
 After the PR:
 - Check that the change is fulfilling it's purpose and works in all browsers/environments.
