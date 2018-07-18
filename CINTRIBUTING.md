@@ -16,38 +16,13 @@ A bug is a demonstrable problem that is caused by the code in the repository. Go
 ##### Guidelines for bug reports:
 - Use the GitHub issue search — check if the issue has already been reported.
 - Check if the issue has been fixed.
-- If possible, Isolate the problem — ideally create a reduced test case.
+- Use our [template](https://github.com/OpenKnowledgeMaps/headstart-vue-example/blob/master/.github/ISSUE_TEMPLATE/feature_request.md) to write a bug report.
 
 A good bug report shouldn't leave others needing to chase you up for more information. Please try to be as detailed as possible in your report. What is your environment? What steps will reproduce the issue? What OS or browser experiences the problem? What would you expect to be the outcome? All these details will help people to fix any potential bugs.
 
-Template:
-
-#### Title: Short and descriptive bug report title
-##### Expected behavior
-What do you think should happen?
-
-#####Actual behavior
-What actually happens?
-
-#####How to reproduce
-Detailed steps.
-- a link to the reduced test case, or image.
-Any other information you want to share that is relevant to the issue being reported. This might include the lines of code that you have identified as causing the bug, and potential solutions.
-
-Example:
-
-#### Title: PDF Modal can’t be resized in Firefox
-##### Expected behavior
-The modal should have the option to be resized in all browsers.
-##### Actual behavior
-In Firefox it’s impossible to resize it.
-##### How to reproduce
-Open a map on a certain issue in Firefox, open a PDF article, Try to resize it.  
-
-## Additional details
-
 ### Feature requests
 Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's maintainers of the merits of this feature. Please provide as much detail and context as possible.
+Use our [template](https://github.com/OpenKnowledgeMaps/headstart-vue-example/blob/master/.github/ISSUE_TEMPLATE/feature_request.md) to write a feature request.
 
 #### Short and descriptive feature title
 
@@ -136,18 +111,10 @@ After the PR:
 - Check that the change is fulfilling its purpose and works in all browsers/environments.
 - Check that the change is performing well in all browsers/environments.
 - Check that the change is in line with the design goals of Head Start.
-- Check that the change is within the scope and philosophy of the component.
 - Check that the change has the necessary tests.
 - Check that the change has any necessary documentation.
 - Check that the changes fit our coding style.
-- Check how the PR affects the different stakeholders of Headstart:
-End users
-Developers
-Designers
-Maintainers
-Deployers
-Users of Head Start as a library
-
+- Check how the PR affects the different stakeholders of Headstart.
 
 If there is anything you don’t like, leave a comment and ask to change. Repeat until everything has been addressed.
 Nit picking:
