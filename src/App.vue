@@ -25,9 +25,9 @@
 <script>
 import { select } from 'd3-selection';
 import { transition } from 'd3-transition';
-import Chart from './components/Chart.vue'
-import Paper from './components/Paper.vue'
-import Bubble from './components/Bubble.vue'
+import Chart from './components/chart//Chart.vue'
+import Paper from './components/paper/Paper.vue'
+import Bubble from './components/bubble/Bubble.vue'
 
 export default {
       name: 'app',
