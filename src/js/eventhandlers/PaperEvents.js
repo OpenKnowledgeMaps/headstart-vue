@@ -1,0 +1,53 @@
+/**
+ * When hovering over a paper:
+ * Checks whether the vis is in a zoomed in state;
+ * If yes, sets zoomedPaper flag to this paper;
+ * @param store
+ * @param paper
+ */
+function onPaperMouseEnter(store, paper) {
+  if (store.forceSimIsDone && store.isZoomed) {
+    store.papersStore.zoomedPaper = paper;
+    store.papersStore.entities.filter((entity) => entity.zIndex >= 5).forEach((entity) => entity.zIndex = 5);
+    paper.zIndex = 6;
+  }
+  store.papersStore.hoveredEntity = paper;
+}
+
+/**
+ * Resets zoomedPaper flag for papersStore
+ * @param store
+ */
+function onPaperMouseLeave(store) {
+  if (store.forceSimIsDone && store.isZoomed) {
+    store.papersStore.zoomedPaper = null;
+  }
+  store.papersStore.hoveredEntity = null;
+}
+
+/**
+ * In zoomed in state: selects paper;
+ * In zoomed out state: zooms in on bubble;
+ * @param store
+ * @param paper
+ */
+function onPaperClick(store, paper) {
+  if (store.forceSimIsDone) {
+    if (store.isZoomed) {
+      store.papersStore.clickedEntity = paper;
+    } else {
+      this.animationLock = true;
+      const node = store.bubblesStore.entities
+        .filter((entity) => entity.area === paper.area)[0];
+      store.updateZoomState(node, () => {
+        store.isZoomed = true;
+        store.bubblesStore.selectedArea = node.area;
+        store.papersStore.selectedArea = node.area;
+        store.papersStore.clickedEntity = null;
+        store.bubblesStore.entitiesInArea(node.area).forEach((entity) => entity.zIndex = 4);
+        store.papersStore.entitiesInArea(node.area).forEach((entity) => entity.zIndex = 5);
+      });}
+  }
+}
+
+export {onPaperMouseLeave, onPaperMouseEnter, onPaperClick};

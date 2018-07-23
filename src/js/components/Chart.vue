@@ -1,4 +1,4 @@
-<template src="./chart.html"></template>
+<template src="../../templates/chart.html"></template>
 
 <script>
   export default {

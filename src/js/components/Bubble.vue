@@ -1,4 +1,4 @@
-<template src="./bubble.html"></template>
+<template src="../../templates/bubble.html"></template>
 
 <script>
   export default {

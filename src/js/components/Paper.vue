@@ -1,4 +1,4 @@
-<template src="./paper.html"></template>
+<template src="../../templates/paper.html"></template>
 
 <script>
   export default {
