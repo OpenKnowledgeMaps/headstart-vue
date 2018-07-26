@@ -2,7 +2,7 @@ import Bubble from '../components/Bubble';
 import { mount } from '@vue/test-utils';
 
 describe('Bubble', () => {
-  let wrapper;
+  let wrapper, circleWrapper, foreignObjectWrapper;
   beforeEach(() => {
     wrapper = mount(Bubble, {
       propsData: {
@@ -13,6 +13,8 @@ describe('Bubble', () => {
         title: "Bubble Title",
         zoomedOut: true
       }});
+    circleWrapper = wrapper.find('circle');
+    foreignObjectWrapper = wrapper.find('foreignObject');
   });
 
   it('renders a svg group element, a circle and a foreignobject according to its props', () => {
@@ -25,26 +27,42 @@ describe('Bubble', () => {
     expect(wrapper.find('foreignobject').exists()).toBe(true);
   });
 
-  it('s circle element reacts to mouseover, mouseout, click and doubleclick events', () => {
-    const circleWrapper = wrapper.find('circle');
+  it('s circle element reacts to mouseover events', () => {
     circleWrapper.trigger('mouseover');
     expect(wrapper.emitted('bubbleMouseEnter')).toBeTruthy();
+  });
+
+  it('s circle element reacts to mouseout events', () => {
     circleWrapper.trigger('mouseout');
     expect(wrapper.emitted('bubbleMouseLeave')).toBeTruthy();
+  });
+
+  it('s circle element reacts to click events', () => {
     circleWrapper.trigger('click');
     expect(wrapper.emitted('bubbleClick')).toBeTruthy();
+  });
+
+  it('s circle element reacts to doubleclick events', () => {
     circleWrapper.trigger('dblclick');
     expect(wrapper.emitted('bubbleDoubleClick')).toBeTruthy();
   });
 
-  it('s foreignobject element reacts to mouseover, mouseout, click and doubleclick events', () => {
-    const foreignObjectWrapper = wrapper.find('foreignObject');
+  it('s foreignobject element reacts to mouseover events', () => {
     foreignObjectWrapper.trigger('mouseover');
     expect(wrapper.emitted('bubbleMouseEnter')).toBeTruthy();
+  });
+
+  it('s foreignobject element reacts to mouseout events', () => {
     foreignObjectWrapper.trigger('mouseout');
     expect(wrapper.emitted('bubbleMouseLeave')).toBeTruthy();
+  });
+
+  it('s foreignobject element reacts to click events', () => {
     foreignObjectWrapper.trigger('click');
     expect(wrapper.emitted('bubbleClick')).toBeTruthy();
+  });
+
+  it('s foreignobject element reacts to doubleclick events', () => {
     foreignObjectWrapper.trigger('dblclick');
     expect(wrapper.emitted('bubbleDoubleClick')).toBeTruthy();
   });
@@ -58,5 +76,5 @@ describe('Bubble', () => {
   //Snapshot Test!
   it('matches a previously made snapshot', () => {
     expect(wrapper).toMatchSnapshot();
-  })
+  });
 });
