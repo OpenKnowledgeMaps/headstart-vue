@@ -1,0 +1,40 @@
+<script src="../js/Bubble.js"></script>
+
+<template>
+<g class="bubble_frame" :transform="translateString" :id="'bubble' + id">
+    <circle
+            :class="{ area: !zoomedOut, zoom_selected: zoomedOut }"
+            :r="r"
+            cx="0"
+            cy="0"
+            style="fill-opacity: 0.8; display: block;"
+            @mouseover="$emit('bubbleMouseEnter', id)"
+            @mouseout="$emit('bubbleMouseLeave', id)"
+            @click="$emit('bubbleClick', id)"
+            @dblclick.prevent="$emit('bubbleDoubleClick', id)"
+    >
+        <title>{{title}}</title>
+    </circle>
+    <foreignObject
+            id="area_title_object"
+            class="headstart"
+            :x="foreignObjectX"
+            :y="foreignObjectY"
+            :width="inscribedSquareLength"
+            :height="inscribedSquareLength"
+            style="visibility: visible; display: block;"
+            @mouseover="$emit('bubbleMouseEnter', id)"
+            @mouseout="$emit('bubbleMouseLeave', id)"
+            @click="$emit('bubbleClick', id)"
+            @dblclick.prevent="$emit('bubbleDoubleClick', id)"
+    >
+        <body style="word-wrap: break-word;">
+        <div id="area_title" :style="{width: inscribedSquareLength + 'px', height: inscribedSquareLength + 'px'}">
+            <h2 class="highlightable" style="font-size: 12px;" v-show="!zoomedOut">
+                {{title}}
+            </h2>
+        </div>
+        </body>
+    </foreignObject>
+</g>
+</template>

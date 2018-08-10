@@ -1,34 +1,29 @@
 import App from '../App';
-import Bubble from '../components/Bubble';
+import Bubble from '../js/Bubble';
 import { shallowMount, mount } from '@vue/test-utils';
 
 describe('App', () => {
-  it('can be mounted', () => {
-    const wrapper = mount(App);
+  it('matches a previously made snapshot', () => {
+    const wrapper = shallowMount(App);
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it('has a method onBubbleMouseEnter that sets a zoomedOut flag true for the bubble', () => {
+  it('calls onBubbleMouseEnter if a bubbleMouseEnter signal is emitted', () => {
     const wrapper = mount(App);
-    expect(wrapper.vm.bubbles[0].zoomedOut).toBe(false);
-    wrapper.find('circle').trigger('mouseover');
-    expect(wrapper.vm.bubbles[0].zoomedOut).toBe(true);
+    const bubbleWrapper = wrapper.find(Bubble);
+    expect(bubbleWrapper.exists()).toBeTruthy();
+    expect(bubbleWrapper.vm.zoomedOut).toBe(false);
+    bubbleWrapper.vm.$emit('bubbleMouseEnter', bubbleWrapper.vm.id);
+    expect(bubbleWrapper.vm.zoomedOut).toBe(true);
   });
 
-  it('has a method onBubbleMouseLeave that sets a zoomedOut flag false for the bubble', () => {
+  it('calls onBubbleMouseLeave if a bubbleMouseLeave signal is emitted', () => {
     const wrapper = mount(App);
-    wrapper.setData({
-      bubbles : [
-        {
-          id: 1,
-          x: 300,
-          y: 300,
-          r: 74.4123,
-          title: "Cool executive functions, Hot and cool, Cool and hot",
-          zoomedOut: true
-        }
-      ]});
-    expect(wrapper.vm.bubbles[0].zoomedOut).toBe(true);
-    wrapper.find('circle').trigger('mouseout');
-    expect(wrapper.vm.bubbles[0].zoomedOut).toBe(false);
+    const bubbleWrapper = wrapper.find(Bubble);
+    expect(bubbleWrapper.exists()).toBeTruthy();
+    bubbleWrapper.vm.$emit('bubbleMouseEnter', bubbleWrapper.vm.id);
+    expect(bubbleWrapper.vm.zoomedOut).toBe(true);
+    bubbleWrapper.vm.$emit('bubbleMouseLeave', bubbleWrapper.vm.id);
+    expect(bubbleWrapper.vm.zoomedOut).toBe(false);
   });
 });
