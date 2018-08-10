@@ -1,3 +1,6 @@
+<script src="../js/Bubble.js"></script>
+
+<template>
 <g class="bubble_frame" :transform="translateString" :id="'bubble' + id">
     <circle
             :class="{ area: !zoomedOut, zoom_selected: zoomedOut }"
@@ -34,3 +37,4 @@
         </body>
     </foreignObject>
 </g>
+</template>
