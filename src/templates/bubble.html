@@ -1,16 +1,16 @@
 <g class="bubble_frame" :transform="translateString" :id="'bubble' + id">
     <circle
-            :class="{ area: !zoomedOut, zoom_selected: zoomedOut }"
+            :class="{ area: !hovered, zoom_selected: hovered }"
             :r="r"
             cx="0"
             cy="0"
             style="fill-opacity: 0.8; display: block;"
-            @mouseover="$emit('bubbleMouseEnter', id)"
-            @mouseout="$emit('bubbleMouseLeave', id)"
-            @click="$emit('bubbleClick', id)"
-            @dblclick.prevent="$emit('bubbleDoubleClick', id)"
+            @mouseover="$emit('mouseEnter', id)"
+            @mouseout="$emit('mouseLeave', id)"
+            @click="$emit('click', id)"
+            @dblclick.prevent="$emit('doubleClick', id)"
     >
-        <title>{{title}}</title>
+        <title>{{area}}</title>
     </circle>
     <foreignObject
             id="area_title_object"
@@ -20,15 +20,15 @@
             :width="inscribedSquareLength"
             :height="inscribedSquareLength"
             style="visibility: visible; display: block;"
-            @mouseover="$emit('bubbleMouseEnter', id)"
-            @mouseout="$emit('bubbleMouseLeave', id)"
-            @click="$emit('bubbleClick', id)"
-            @dblclick.prevent="$emit('bubbleDoubleClick', id)"
+            @mouseover="$emit('mouseEnter', id)"
+            @mouseout="$emit('mouseLeave', id)"
+            @click="$emit('click', id)"
+            @dblclick.prevent="$emit('doubleClick', id)"
     >
         <body style="word-wrap: break-word;">
         <div id="area_title" :style="{width: inscribedSquareLength + 'px', height: inscribedSquareLength + 'px'}">
-            <h2 class="highlightable" style="font-size: 12px;" v-show="!zoomedOut">
-                {{title}}
+            <h2 class="highlightable" style="font-size: 12px;" v-show="!hovered">
+                {{area}}
             </h2>
         </div>
         </body>

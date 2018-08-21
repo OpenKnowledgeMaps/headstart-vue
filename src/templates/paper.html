@@ -3,10 +3,10 @@
         :id="'paper' + id"
         :transform="translateString"
         style="display: block;"
-        @mouseover="$emit('bubbleMouseEnter', bubbleId)"
-        @mouseout="$emit('bubbleMouseLeave', bubbleId)"
-        @click="$emit('bubbleClick', bubbleId)"
-        @dblclick.prevent="$emit('bubbleDoubleClick', bubbleId)"
+        @mouseover="$emit('mouseEnter', bubbleId)"
+        @mouseout="$emit('mouseLeave', bubbleId)"
+        @click="$emit('click', bubbleId)"
+        @dblclick.prevent="$emit('doubleClick', bubbleId)"
 >
 
     <path
@@ -24,26 +24,28 @@
             class="paperContent"
             :width="w"
             :height="h"
-            @mouseover="$emit('bubbleMouseEnter', bubbleId)"
-            @mouseout="$emit('bubbleMouseLeave', bubbleId)"
-            @click="$emit('bubbleClick', bubbleId)"
-            @dblclick.prevent="$emit('bubbleDoubleClick', bubbleId)"
+            @mouseover="$emit('mouseEnter', bubbleId)"
+            @mouseout="$emit('mouseLeave', bubbleId)"
+            @click="$emit('click', bubbleId)"
+            @dblclick.prevent="$emit('doubleClick', bubbleId)"
     >
         <body>
             <div class="paper_holder">
 
-                <div class="metadata" :style="{ height: metadata_height + 'px', width: metadata_width + 'px'}">
+                <div class="metadata" :style="{ height: metadata.height + 'px', width: metadata.width + 'px'}">
                     <div id="icons">
                         <p id="open-access-logo">&#xf09c;</p>
                     </div>
                     <p id="title" class="highlightable">
-                        {{ title }}<br />
+                        {{ metadata.title }}<br />
                     </p>
-                    <p id="details" class="highlightable">{{ authors_string }}</p>
-                    <p id="in">in <span class="highlightable">{{ published_in }} <span class="pubyear">({{ year }})</span></span></p>
+                    <p id="details" class="highlightable">{{ metadata.authors_string }}</p>
+                    <p id="in">in <span class="highlightable">{{ metadata.published_in }} 
+                        <span class="pubyear">({{ metadata.year }})</span></span></p>
                 </div>
                 <div class="readers">
-                    <p id="readers"><span id="num-readers">{{ readers }}</span><span class="readers_entity"> {{ base_unit }}</span></p>
+                    <p id="readers"><span id="num-readers">{{ metadata.readers }}</span>
+                        <span class="readers_entity"> {{ metadata.base_unit }}</span></p>
 
                 </div>
             </div>

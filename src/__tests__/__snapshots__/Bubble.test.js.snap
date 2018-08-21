@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Bubble matches a previously made snapshot 1`] = `
-<g transform="translate(100,20)" id="bubble0" class="bubble_frame">
-  <circle r="30" cx="0" cy="0" class="zoom_selected" style="fill-opacity: 0.8; display: block;">
-    <title>Bubble Title</title>
+<g transform="translate(300,300)" id="bubble1" class="bubble_frame">
+  <circle r="74.4123" cx="0" cy="0" class="area" style="fill-opacity: 0.8; display: block;">
+    <title>Cool</title>
   </circle>
-  <foreignObject id="area_title_object" x="-21.213203435596427" y="-21.213203435596427" width="42.42640687119285" height="42.42640687119285" class="headstart" style="visibility: visible; display: block;">
+  <foreignObject id="area_title_object" x="-52.617441933687736" y="-52.617441933687736" width="105.23488386737547" height="105.23488386737547" class="headstart" style="visibility: visible; display: block;">
 
     <body style="word-wrap: break-word;">
-      <div id="area_title" style="width: 42.42640687119285px; height: 42.42640687119285px;">
-        <h2 class="highlightable" style="font-size: 12px; display: none;">
-          Bubble Title
+      <div id="area_title" style="width: 105.23488386737547px; height: 105.23488386737547px;">
+        <h2 class="highlightable" style="font-size: 12px;">
+          Cool
         </h2>
       </div>
     </body>
