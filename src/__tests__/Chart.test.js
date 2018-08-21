@@ -1,4 +1,4 @@
-import Chart from '../js/Chart';
+import Chart from '../templates/Chart';
 import { shallowMount } from '@vue/test-utils';
 
 const factory = (values = {}) => {

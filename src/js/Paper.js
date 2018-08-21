@@ -6,15 +6,18 @@
       w: Number,
       h: Number,
       id: Number,
+      order: Number,
       bubbleId: Number,
-      metadata_height: Number,
-      metadata_width: Number,
-      title: String,
-      authors_string: String,
-      published_in: String,
-      year: String,
-      readers: String,
-      base_unit: String
+      metadata: {
+        width: Number,
+        height: Number,
+        title: String,
+        authors_string: String,
+        published_in: String,
+        year: String,
+        readers: String,
+        base_unit: String
+      }
     },
     computed: {
       translateString: function() {
