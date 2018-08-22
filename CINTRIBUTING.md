@@ -84,7 +84,7 @@ Make sure the change is performing well in all browsers/screens/environments and
 git push origin <topic-branch-name>
 ```
 
-6. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/) with a clear title - including the issue number and the description. Example - Issue #133 - Making the modal draggable. Write what you changed and other needed information in the comment.
+6. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/), and use [this template](https://github.com/OpenKnowledgeMaps/headstart-vue/blob/dev/docs/pull_request_template.md) to make the PR.
 
 ### Some more rules
 - If you want to use a new library, please ask for a permission.
