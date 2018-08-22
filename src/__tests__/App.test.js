@@ -1,5 +1,5 @@
 import App from '../App';
-import Bubble from '../components/Bubble';
+import Bubble from '../js/components/Bubble';
 import { shallowMount, mount } from '@vue/test-utils';
 
 describe('App', () => {
@@ -12,18 +12,18 @@ describe('App', () => {
     const wrapper = mount(App);
     const bubbleWrapper = wrapper.find(Bubble);
     expect(bubbleWrapper.exists()).toBeTruthy();
-    expect(bubbleWrapper.vm.zoomedOut).toBe(false);
-    bubbleWrapper.vm.$emit('bubbleMouseEnter', bubbleWrapper.vm.id);
-    expect(bubbleWrapper.vm.zoomedOut).toBe(true);
+    expect(bubbleWrapper.vm.hovered).toBe(false);
+    bubbleWrapper.vm.$emit('mouseEnter', bubbleWrapper.vm.id);
+    expect(bubbleWrapper.vm.hovered).toBe(true);
   });
 
   it('calls onBubbleMouseLeave if a bubbleMouseLeave signal is emitted', () => {
     const wrapper = mount(App);
     const bubbleWrapper = wrapper.find(Bubble);
     expect(bubbleWrapper.exists()).toBeTruthy();
-    bubbleWrapper.vm.$emit('bubbleMouseEnter', bubbleWrapper.vm.id);
-    expect(bubbleWrapper.vm.zoomedOut).toBe(true);
-    bubbleWrapper.vm.$emit('bubbleMouseLeave', bubbleWrapper.vm.id);
-    expect(bubbleWrapper.vm.zoomedOut).toBe(false);
+    bubbleWrapper.vm.$emit('mouseenter', bubbleWrapper.vm.id);
+    expect(bubbleWrapper.vm.hovered).toBe(true);
+    bubbleWrapper.vm.$emit('mouseLeave', bubbleWrapper.vm.id);
+    expect(bubbleWrapper.vm.hovered).toBe(false);
   });
 });

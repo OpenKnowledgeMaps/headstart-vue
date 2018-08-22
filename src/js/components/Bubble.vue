@@ -8,8 +8,9 @@
       x: Number,
       y: Number,
       r: Number,
-      title: String,
-      zoomedOut: Boolean
+      order: Number,
+      area: String,
+      hovered: Boolean
     },
     computed: {
       translateString: function() {
