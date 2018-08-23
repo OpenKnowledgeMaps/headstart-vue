@@ -1,5 +1,5 @@
 import App from '../App';
-import Bubble from '../components/Bubble';
+import Bubble from '../js/Bubble';
 import { shallowMount, mount } from '@vue/test-utils';
 
 describe('App', () => {

@@ -1,3 +1,6 @@
+<script src="../js/Paper.js"></script>
+
+<template>
 <g
         class="paper"
         :id="'paper' + id"
@@ -50,3 +53,8 @@
         </body>
     </foreignObject>
 </g>
+</template>
+
+<style scoped>
+
+</style>

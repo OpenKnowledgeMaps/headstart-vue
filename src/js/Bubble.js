@@ -1,7 +1,4 @@
-<template src="../../templates/bubble.html"></template>
-
-<script>
-  export default {
+export default {
     name: "Bubble",
     props: {
       id: Number,
@@ -26,4 +23,3 @@
       }
     }
   }
-</script>

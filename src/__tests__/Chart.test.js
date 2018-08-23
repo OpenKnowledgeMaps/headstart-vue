@@ -1,5 +1,5 @@
-import Chart from '../components/Chart';
-import { shallowMount, mount } from '@vue/test-utils';
+import Chart from '../js/Chart';
+import { shallowMount } from '@vue/test-utils';
 
 const factory = (values = {}) => {
   return shallowMount(Chart, {

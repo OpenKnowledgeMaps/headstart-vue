@@ -1,4 +1,4 @@
-import Paper from '../components/Paper';
+import Paper from '../js/Paper';
 import { shallowMount } from '@vue/test-utils';
 
 const factory = (values = {}) => {

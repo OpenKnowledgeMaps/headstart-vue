@@ -1,6 +1,3 @@
-<template src="../../templates/paper.html"></template>
-
-<script>
   export default {
     name: "Paper",
     props: {
@@ -31,8 +28,3 @@
       }
     }
   }
-</script>
-
-<style scoped>
-
-</style>
