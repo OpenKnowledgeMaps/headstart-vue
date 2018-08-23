@@ -21,8 +21,8 @@ A bug is a demonstrable problem that is caused by the code in the repository. Go
 A good bug report shouldn't leave others needing to chase you up for more information. Please try to be as detailed as possible in your report. What is your environment? What steps will reproduce the issue? What OS or browser experiences the problem? What would you expect to be the outcome? All these details will help people to fix any potential bugs.
 
 ### Feature requests
-Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's maintainers of the merits of this feature. Please provide as much detail and context as possible.
-Use our [template](https://github.com/OpenKnowledgeMaps/headstart-vue-example/blob/master/.github/ISSUE_TEMPLATE/feature_request.md) to write a feature request.
+Feature requests are welcome. We will carefully review all requests. Please provide as much detail and context as you possibly can - and use our Use our [template](https://github.com/OpenKnowledgeMaps/headstart-vue-example/blob/master/.github/ISSUE_TEMPLATE/feature_request.md) to write it. Feature requests that fit the scope of the project better are more likely to be picked up for implementation. For more information on the scope of the project please visit our [roadmap] (https://github.com/OpenKnowledgeMaps/open-discovery/blob/master/roadmap.md).
+
 
 #### Short and descriptive feature title
 
@@ -118,11 +118,10 @@ After the PR:
 
 If there is anything you don’t like, leave a comment and ask to change. Repeat until everything has been addressed.
 Nit picking:
-Nitpicking is when a reviewer identifies trivial and unimportant details in a pull request (like code styling issue, variables names etc), and asks the author to change them.
-Reviewers should feel comfortable giving any feedback they have on a pull request regardless of how trivial it is. Authors should feel equally comfortable passing on feedback that they think is trivial and inconsequential.
-Often, reviewers have an opinion about whether the feedback they are about to give is a nitpick or not. While not required, it can be really helpful to identify that feedback as such, for example "nit: a newline after this would be helpful". This helps the author understand your intention.
+Nitpicking is when a reviewer identifies trivial and unimportant details in a pull request (like code styling issue, variables names etc), and asks the author to change them. While not required, it can be really helpful to identify that feedback as such, for example "nit: a newline after this would be helpful". This helps the author understand your intention.
 If you are not sure about something, mention @somebody from the team for help in a comment.
 Once everything looks good, add an "Approve" review. Don’t forget to say something nice.
+
 Here is more information about [approving](https://help.github.com/articles/approving-a-pull-request-with-required-reviews/
 ) and [mergin](https://help.github.com/articles/merging-a-pull-request/
 ).
