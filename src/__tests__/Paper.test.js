@@ -1,4 +1,4 @@
-import Paper from '../js/Paper';
+import Paper from '../templates/Paper';
 import { shallowMount } from '@vue/test-utils';
 
 const factory = (values = {}) => {
@@ -10,20 +10,23 @@ let wrapper, gWrapper, foreignObjectWrapper;
 
 beforeEach(() => {
   wrapper = factory({
-    x: 20,
-    y: 20,
-    w: 40,
-    h: 40,
     id: 0,
-    bubbleId: 1,
-    metadata_height: 10,
-    metadata_width: 10,
-    title: 'Test Paper',
-    authors_string: 'Test Author',
-    published_in: 'Test Journal',
-    year: '2018',
-    readers: '20',
-    base_unit: 'readers'
+    x: 300,
+    y: 300,
+    w: 22.28,
+    h: 29,
+    order: 0,
+    metadata: {
+      width: 20,
+      height: 23,
+      title: "De­vel­op­ment of re­la­tional pro­cess­ing in hot and cool tasks.",
+      authors_string: "Katie M Bunch, Glenda An­drews",
+      published_in: "Developmental neuropsychology",
+      year: "(2012)",
+      readers: "2",
+      base_unit: "citations"
+    },
+    bubbleId: 1
   });
 
   gWrapper = wrapper.find('g');
@@ -37,41 +40,41 @@ describe('Paper', () => {
 
   it('s g element reacts to mouseover events', () => {
     gWrapper.trigger('mouseover');
-    expect(wrapper.emitted('bubbleMouseEnter')).toBeTruthy();
+    expect(wrapper.emitted('mouseEnter')).toBeTruthy();
   });
 
   it('s g element reacts to mouseout events', () => {
       gWrapper.trigger('mouseout');
-      expect(wrapper.emitted('bubbleMouseLeave')).toBeTruthy();
+      expect(wrapper.emitted('mouseLeave')).toBeTruthy();
   });
 
   it('s g element reacts to click events', () => {
       gWrapper.trigger('click');
-      expect(wrapper.emitted('bubbleClick')).toBeTruthy();
+      expect(wrapper.emitted('click')).toBeTruthy();
   });
 
   it('s g element reacts to doubleclick events', () => {
-      gWrapper.trigger('click');
-      expect(wrapper.emitted('bubbleClick')).toBeTruthy();
+      gWrapper.trigger('dblclick');
+      expect(wrapper.emitted('doubleClick')).toBeTruthy();
   });
 
   it('s foreignObject element reacts to mouseover events', () => {
       foreignObjectWrapper.trigger('mouseover');
-      expect(wrapper.emitted('bubbleMouseEnter')).toBeTruthy();
+      expect(wrapper.emitted('mouseEnter')).toBeTruthy();
   });
 
   it('s foreignObject element reacts to mouseout events', () => {
       foreignObjectWrapper.trigger('mouseout');
-      expect(wrapper.emitted('bubbleMouseLeave')).toBeTruthy();
+      expect(wrapper.emitted('mouseLeave')).toBeTruthy();
   });
 
   it('s foreignObject element reacts to click events', () => {
       foreignObjectWrapper.trigger('click');
-      expect(wrapper.emitted('bubbleClick')).toBeTruthy();
+      expect(wrapper.emitted('click')).toBeTruthy();
   });
 
   it('s foreignObject element reacts to doubleclick events', () => {
       foreignObjectWrapper.trigger('dblclick');
-      expect(wrapper.emitted('bubbleDoubleClick')).toBeTruthy();
+      expect(wrapper.emitted('doubleClick')).toBeTruthy();
   });
 });
