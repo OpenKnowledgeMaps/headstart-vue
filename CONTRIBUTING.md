@@ -108,13 +108,17 @@ Please make sure that the new issue is necessary to the project. Reviewing PRs, 
 Please label the new issue as “discussion”, if it’s still in discussion, and - “implementation” when it’s ready to be written. Please add also “good first issue”, “frontend”/“backend” and so on, to help contributors find issues that fit their skills.
 
 After the PR:
-- Check that the change is fulfilling its purpose and works in all browsers/environments.
-- Check that the change is performing well in all browsers/environments.
-- Check that the change is in line with the design goals of Head Start.
-- Check that the change has the necessary tests.
-- Check that the change has any necessary documentation.
-- Check that the changes fit our coding style.
-- Check how the PR affects the different stakeholders of Headstart.
+
+Please use the following template to review the PR. Suggested use is that you tick the item off or explain what needs to be improved. If the category does not apply to the PR, simply state “n/a”.
+
+- The change is fulfilling its purpose and works in all browsers/environments
+- The change is performing well in all browsers/environments
+- The change is in line with the [design goals of Head Start](https://github.com/OpenKnowledgeMaps/headstart-vue/blob/master/DESIGN_GOALS.md)
+- The change is within the scope and philosophy of the component
+- The change has the necessary tests
+- The change has any necessary documentation
+- The changes fit our coding style
+- The changes do not negatively affect the different stakeholders of Headstart (end users, developers, designers, maintainers, deployers, users of Head Start as a library).
 
 If there is anything you don’t like, leave a comment and ask to change. Repeat until everything has been addressed.
 Nit picking:
