@@ -1,4 +1,5 @@
-<script src="../js/Paper.js"></script>
+<script src="../js/Paper.js">
+</script>
 
 <template>
 <g
@@ -43,7 +44,7 @@
                         {{ metadata.title }}<br />
                     </p>
                     <p id="details" class="highlightable">{{ metadata.authors_string }}</p>
-                    <p id="in">in <span class="highlightable">{{ metadata.published_in }} 
+                    <p id="in">in <span class="highlightable">{{ metadata.published_in }}
                         <span class="pubyear">({{ metadata.year }})</span></span></p>
                 </div>
                 <div class="readers">
@@ -58,5 +59,4 @@
 </template>
 
 <style scoped>
-
 </style>

@@ -1,6 +1,6 @@
+import { shallowMount, mount } from '@vue/test-utils';
 import App from '../App';
 import Bubble from '../templates/Bubble';
-import { shallowMount, mount } from '@vue/test-utils';
 
 describe('App', () => {
   it('matches a previously made snapshot', () => {

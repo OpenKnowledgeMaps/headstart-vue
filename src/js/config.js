@@ -1,4 +1,4 @@
 export default {
-    svgHeight: 600,
-    svgWidth: 600,
-}
+  svgHeight: 600,
+  svgWidth: 600,
+};

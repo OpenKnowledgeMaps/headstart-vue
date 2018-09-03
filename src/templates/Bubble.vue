@@ -1,4 +1,5 @@
-<script src="../js/Bubble.js"></script>
+<script src="../js/Bubble.js">
+</script>
 
 <template>
 <g class="bubble_frame" :transform="translateString" :id="'bubble' + id">

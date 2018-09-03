@@ -23,71 +23,71 @@
 </template>
 
 <script>
-import Chart from './templates/Chart.vue'
-import Paper from './templates/Paper.vue'
-import Bubble from './templates/Bubble.vue'
+import Chart from './templates/Chart.vue';
+import Paper from './templates/Paper.vue';
+import Bubble from './templates/Bubble.vue';
 
-import backendData from './js/backendFakeAPIData.js'
-import config from './js/config.js'
+import backendData from './js/backendFakeAPIData.js';
+import config from './js/config.js';
 
 export default {
-      name: 'app',
-      components: {
-        Chart,
-        Paper,
-        Bubble
+  name: 'app',
+  components: {
+    Chart,
+    Paper,
+    Bubble,
+  },
+  data() {
+    return {
+      chartDimensions: {
+        width: config.svgWidth,
+        height: config.svgHeight,
       },
-      data: function() {
-        return {
-          chartDimensions: {
-            width: config.svgWidth,
-            height: config.svgHeight
-          },
-          zoomState: {
-            factor: 1,
-            translate: {
-              x: 0,
-              y: 0
-            },
-            zoomed: false
-          },
-          zoomFactor: 1,
-          zoomed: false,
-          papers: backendData.papers,
-          bubbles: backendData.bubbles
-        }
+      zoomState: {
+        factor: 1,
+        translate: {
+          x: 0,
+          y: 0,
+        },
+        zoomed: false,
+      },
+      zoomFactor: 1,
+      zoomed: false,
+      papers: backendData.papers,
+      bubbles: backendData.bubbles,
+    };
   },
   methods: {
-    onBubbleMouseEnter: function(id) {
-      this.bubbles.find((bubble) => bubble.id === id).hovered = true;
+    onBubbleMouseEnter(id) {
+      this.bubbles.find(bubble => bubble.id === id).hovered = true;
     },
-    onBubbleMouseLeave: function(id) {
-      this.bubbles.find((bubble) => bubble.id === id).hovered = false;
+    onBubbleMouseLeave(id) {
+      this.bubbles.find(bubble => bubble.id === id).hovered = false;
     },
-    onBubbleMouseClick: function(id) {
+    onBubbleMouseClick(id) {
       // eslint-disable-next-line
       console.log(`Clicked Bubble ${id} - not implemented yet`);
     },
-    onBubbleDoubleClick: function(id) {
+    onBubbleDoubleClick(id) {
       // eslint-disable-next-line
       console.log(`Doubleclicked Bubble ${id} - not implemented yet`);
     },
-    onPaperMouseEnter: function(id) {
+    onPaperMouseEnter(id) {
       // eslint-disable-next-line
       console.log(`Hovered Paper ${id} - not implemented yet`);
     },
-    onPaperMouseLeave: function(id) {
+    onPaperMouseLeave(id) {
       // eslint-disable-next-line
       console.log(`Mouse left Paper ${id} - not implemented yet`);
     },
-    onPaperMouseClick: function(id) {
+    onPaperMouseClick(id) {
       // eslint-disable-next-line
       console.log(`Clicked Paper ${id} - not implemented yet`);
     },
-    onPaperDoubleClick: function(id) {
+    onPaperDoubleClick(id) {
       // eslint-disable-next-line
       console.log(`Doubleclicked Paper ${id} - not implemented yet`);
-    }
-  }
-}
+    },
+  },
+};
 </script>
