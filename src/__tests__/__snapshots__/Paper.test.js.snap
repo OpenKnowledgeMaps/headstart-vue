@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Paper matches a previously made snapshot 1`] = `
+<g id="paper0" transform="translate(300,300)" class="paper" style="display: block;">
+  <path id="region" d="M 0 0 h 20.052000000000003 l 2.228 2.9000000000000004 v 26.1 h -22.28 v -29" class="unframed" style="fill-opacity: 1;"></path>
+  <path d="M 20.052000000000003 0 v 2.228 h 2.9000000000000004" class="dogear"></path>
+  <foreignObject id="article_metadata" width="22.28" height="29" class="paperContent">
+
+    <body>
+      <div class="paper_holder">
+        <div class="metadata" style="height: 23px; width: 20px;">
+          <div id="icons">
+            <p id="open-access-logo"></p>
+          </div>
+          <p id="title" class="highlightable">
+            De­vel­op­ment of re­la­tional pro­cess­ing in hot and cool tasks.
+            <br>
+          </p>
+          <p id="details" class="highlightable">Katie M Bunch, Glenda An­drews</p>
+          <p id="in">in <span class="highlightable">Developmental neuropsychology
+                        <span class="pubyear">((2012))</span></span>
+          </p>
+        </div>
+        <div class="readers">
+          <p id="readers"><span id="num-readers">2</span> <span class="readers_entity"> citations</span></p>
+        </div>
+      </div>
+    </body>
+  </foreignObject>
+</g>
+`;

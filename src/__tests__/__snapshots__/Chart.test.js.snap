@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chart matches a previously made snapshot 1`] = `
+<div class="headstart">
+  <div class="container-headstart">
+    <div class="vis-col">
+      <div id="headstart-chart">
+        <svg id="chart-svg" height="600" width="600">
+          <g id="chart_canvas">
+            <rect id="map-rect" height="600" width="600" x="0" y="0" class="zoomed_out"></rect>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+`;
