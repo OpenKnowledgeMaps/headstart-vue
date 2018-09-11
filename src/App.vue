@@ -1,23 +1,29 @@
 <template>
   <div id="app">
     <Chart :height="chartDimensions.height" :width="chartDimensions.width">
-        <Bubble
-                v-for="bubble in bubbles"
-                :key="bubble.id"
-                v-bind="bubble"
-                v-on:mouseEnter="onBubbleMouseEnter"
-                v-on:mouseLeave="onBubbleMouseLeave"
-                v-on:click="onBubbleMouseClick"
-                v-on:doubleClick="onBubbleDoubleClick"
-        ></Bubble>
-        <Paper v-for="paper in papers"
-               :key="paper.id"
-               v-bind="paper"
-               v-on:mouseEnter="onPaperMouseEnter"
-               v-on:mouseLeave="onPaperMouseLeave"
-               v-on:click="onPaperMouseClick"
-               v-on:doubleClick="onPaperDoubleClick"
-        ></Paper>
+      <SvgConditionalElement
+        v-for="paperOrBubble in sortedPapersAndBubbles"
+        :key="paperOrBubble.id"
+      >
+        <template slot='paper' v-if="paperOrBubble.type === 'paper'">
+          <Paper
+            v-bind="paperOrBubble"
+            v-on:mouseEnter="onPaperMouseEnter"
+            v-on:mouseLeave="onPaperMouseLeave"
+            v-on:click="onPaperMouseClick"
+            v-on:doubleClick="onPaperDoubleClick"
+          />
+        </template>
+        <template slot='bubble' v-if="paperOrBubble.type === 'bubble'">
+          <Bubble
+            v-bind="paperOrBubble"
+            v-on:mouseEnter="onBubbleMouseEnter"
+            v-on:mouseLeave="onBubbleMouseLeave"
+            v-on:click="onBubbleMouseClick"
+            v-on:doubleClick="onBubbleDoubleClick"
+          />
+        </template>
+      </SvgConditionalElement>
     </Chart>
   </div>
 </template>
@@ -26,6 +32,7 @@
 import Chart from './templates/Chart.vue';
 import Paper from './templates/Paper.vue';
 import Bubble from './templates/Bubble.vue';
+import SvgConditionalElement from './templates/SvgConditionalElement.vue';
 
 import backendData from './js/backendFakeAPIData.js';
 import config from './js/config.js';
@@ -36,6 +43,7 @@ export default {
     Chart,
     Paper,
     Bubble,
+    SvgConditionalElement,
   },
   data() {
     return {
@@ -87,6 +95,11 @@ export default {
     onPaperDoubleClick(id) {
       // eslint-disable-next-line
       console.log(`Doubleclicked Paper ${id} - not implemented yet`);
+    },
+  },
+  computed: {
+    sortedPapersAndBubbles() {
+      return [...this.papers, ...this.bubbles].sort((elemA, elemB) => elemA.order - elemB.order);
     },
   },
 };
