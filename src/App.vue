@@ -104,17 +104,14 @@ export default {
     },
     doBubbleZoom(bubble) {
         const applied = this.zoomState.applied;
-        const prevBubble = applied.bubble;
 
         const originBubble = resetPaperOrBubble(applied, bubble);
-        const zoomState = setZoomState(originBubble, this.getChartCenter, originBubble.r, prevBubble.r);
-
+        const zoomState = setZoomState(originBubble, this.getChartCenter, originBubble.r, this.zoomedBubbleTargetRadius);
         this.sortedPapersAndBubbles.forEach((bbl) => {
-          Object.assign(bbl, 
-            transformPaperOrBubble(zoomState, resetPaperOrBubble(applied, bbl)));
+            Object.assign(bbl, 
+              transformPaperOrBubble(zoomState, resetPaperOrBubble(applied, bbl)));
         });
         Object.assign(this.zoomState.applied, zoomState);
-        console.log(this.zoomState.applied);
     },
     onBubbleDoubleClick(id) {
       console.log(`Doubleclicked bubble ${id} - not implemented yet`);
@@ -131,7 +128,6 @@ export default {
         Object.assign(bbl, resetPaperOrBubble(applied, bbl));
       });
       Object.assign(this.zoomState.applied, this.getZoomedOutState);
-      console.log(this.zoomState.applied);
     },
     onPaperMouseEnter(id) {
       // eslint-disable-next-line
