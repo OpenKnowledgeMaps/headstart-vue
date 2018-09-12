@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <Chart :height="chartDimensions.height" :width="chartDimensions.width">
+    <Chart 
+      :height="chartDimensions.height" 
+      :width="chartDimensions.width"
+      v-on:click="onRectMouseClick"  
+    >
       <SvgConditionalElement
         v-for="paperOrBubble in sortedPapersAndBubbles"
         :key="paperOrBubble.id"
@@ -53,32 +57,120 @@ export default {
       },
       zoomState: {
         factor: 1,
-        translate: {
+        centerPoint: {
           x: 0,
           y: 0,
         },
+        applied: {
+          bubble: {
+            x: 0,
+            y: 0,
+          },
+          centerPoint: {
+            x: 0,
+            y: 0,
+          },
+          factor: 1
+        },
         zoomed: false,
       },
-      zoomFactor: 1,
-      zoomed: false,
       papers: backendData.papers,
-      bubbles: backendData.bubbles,
+      bubbles: backendData.bubbles
     };
   },
   methods: {
     onBubbleMouseEnter(id) {
-      this.bubbles.find(bubble => bubble.id === id).hovered = true;
+      let bubble = this.bubbles.find(bubble => bubble.id === id); 
+      bubble.hovered = true;
+      let topElement = this.sortedPapersAndBubbles.slice(-1)[0];
+      let tmpOrder = topElement.order;
+      topElement.order = bubble.order;
+      bubble.order = tmpOrder;
     },
     onBubbleMouseLeave(id) {
       this.bubbles.find(bubble => bubble.id === id).hovered = false;
     },
     onBubbleMouseClick(id) {
-      // eslint-disable-next-line
-      console.log(`Clicked Bubble ${id} - not implemented yet`);
+        this.zoomState.zoomed = true;
+        let bubble = this.bubbles.find(bubble => bubble.id === id);
+        this.setZoomStateFromBubble(this.getChartCenter, bubble.r, this.zoomedBubbleTargetRadius);
+        this.updateZoomState(bubble);
+    },
+    onRectMouseClick() {
+        console.log("rect clicked");
+        this.resetZoomState();
+    },
+    setZoomStateFromBubble(center, startRadius, targetRadius) {
+      this.zoomState.centerPoint = center;
+      // wrong zoomfactor if already zoomed
+      this.zoomState.factor = targetRadius/startRadius;
+      this.zoomState.zoomed = true;
+    },
+    resetZoomState() {
+      const { applied } = this.zoomState;
+      this.sortedPapersAndBubbles.forEach((paperOrBubble) => {
+        Object.assign(paperOrBubble, this.undoTransformation(
+          applied.bubble,
+          applied.centerPoint,
+          applied.factor,
+          paperOrBubble
+        ));
+        // if (paperOrBubble.type === 'bubble') paperOrBubble.r = paperOrBubble.r/applied.factor;
+      });
+      this.zoomState.applied = {
+          bubble: {
+            x: 0,
+            y: 0,
+          },
+          centerPoint: {
+            x: 0,
+            y: 0,
+          },
+          factor: 1
+      }
+      console.log(this.zoomState.applied);
+    },
+    updateZoomState(bubble) {
+      const { factor, centerPoint } = this.zoomState;
+      const { applied } = this.zoomState;
+      const tmpBubble = {
+        x: bubble.x,
+        y: bubble.y
+      }
+      this.resetZoomState();
+
+      this.sortedPapersAndBubbles.forEach((paperOrBubble) => {
+        // apply the new transformation
+        Object.assign(paperOrBubble, this.applyTransformation(bubble, centerPoint, factor, paperOrBubble));
+        if (paperOrBubble.type === 'bubble') paperOrBubble.r *= factor;
+      });
+
+      this.zoomState.applied = {
+          bubble: {
+            x: tmpBubble.x,
+            y: tmpBubble.y,
+          },
+          centerPoint: {
+            x: centerPoint.x,
+            y: centerPoint.y,
+          },
+          factor: factor
+      }
+      console.log(this.zoomState.applied);
+    },
+    undoTransformation(selectedBubbleCoords, referenceCoords, factor, bubble) {
+      return {
+        x: (bubble.x - referenceCoords.x)/factor + selectedBubbleCoords.x,
+        y: (bubble.y - referenceCoords.y)/factor + selectedBubbleCoords.y,
+      }
+    },
+    applyTransformation(selectedBubbleCoords, referenceCoords, factor, bubble) {
+      return { 
+        x: referenceCoords.x + (bubble.x - selectedBubbleCoords.x)*factor,
+        y: referenceCoords.y + (bubble.y - selectedBubbleCoords.y)*factor }
     },
     onBubbleDoubleClick(id) {
-      // eslint-disable-next-line
-      console.log(`Doubleclicked Bubble ${id} - not implemented yet`);
+      console.log(`Doubleclicked bubble ${id} - not implemented yet`);
     },
     onPaperMouseEnter(id) {
       // eslint-disable-next-line
@@ -101,6 +193,12 @@ export default {
     sortedPapersAndBubbles() {
       return [...this.papers, ...this.bubbles].sort((elemA, elemB) => elemA.order - elemB.order);
     },
+    zoomedBubbleTargetRadius() {
+      return this.chartDimensions.width*0.5*0.5;
+    },
+    getChartCenter() {
+      return { x: this.chartDimensions.width*0.5, y: this.chartDimensions.height*0.5};
+    }
   },
 };
 </script>
