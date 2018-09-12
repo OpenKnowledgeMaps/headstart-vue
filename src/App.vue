@@ -57,17 +57,6 @@ export default {
         height: config.svgHeight,
       },
       zoomState: {
-        factor: 1,
-        bubble: {
-          x: 0,
-          y: 0,
-          r: 1
-        },
-        centerPoint: {
-          x: 0,
-          y: 0,
-        },
-        zoomed: false,
         applied: {
           bubble: {
             x: 0,
