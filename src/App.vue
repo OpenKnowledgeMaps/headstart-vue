@@ -33,11 +33,18 @@
 </template>
 
 <script>
+// dependencies
+import { transition } from 'd3-transition';
+
+// components
 import Chart from './templates/Chart.vue';
 import Paper from './templates/Paper.vue';
 import Bubble from './templates/Bubble.vue';
 import SvgConditionalElement from './templates/SvgConditionalElement.vue';
-import { resetPaperOrBubble, transformPaperOrBubble, setZoomState } from './js/zoomMath.js'
+
+// functions
+import { resetPaperOrBubble, transformPaperOrBubble, setZoomState } from './js/zoomMath.js';
+import { animateD3 } from './js/animateD3';
 
 import backendData from './js/backendFakeAPIData.js';
 import config from './js/config.js';
@@ -96,11 +103,21 @@ export default {
 
         const originBubble = resetPaperOrBubble(applied, bubble);
         const zoomState = setZoomState(originBubble, this.getChartCenter, originBubble.r, this.zoomedBubbleTargetRadius);
-        this.sortedPapersAndBubbles.forEach((bbl) => {
-            Object.assign(bbl, 
-              transformPaperOrBubble(zoomState, resetPaperOrBubble(applied, bbl)));
+
+        let trans = transition().duration(config.transitionDuration);
+        let elements = [];
+        this.sortedPapersAndBubbles.forEach((element) => {
+            const newElement = transformPaperOrBubble(zoomState, resetPaperOrBubble(applied, element));
+            animateD3(trans, element, newElement);
+            elements.push([element, newElement]);
         });
-        Object.assign(this.zoomState.applied, zoomState);
+        trans.on('end', () => {
+          console.log('mod state zoom');
+          elements.forEach((element) => {
+            Object.assign(element[0], element[1]);
+          })
+          Object.assign(this.zoomState.applied, zoomState);
+        })
     },
     onBubbleDoubleClick(id) {
       console.log(`Doubleclicked bubble ${id} - not implemented yet`);
@@ -113,10 +130,21 @@ export default {
       const prevBubble = this.zoomState.applied.bubble;
       const applied = this.zoomState.applied;
 
-      this.sortedPapersAndBubbles.forEach((bbl) => {
-        Object.assign(bbl, resetPaperOrBubble(applied, bbl));
+      let trans = transition().duration(config.transitionDuration);
+      let elements = [];
+
+      this.sortedPapersAndBubbles.forEach((element) => {
+        const newElement = resetPaperOrBubble(applied, element);
+        animateD3(trans, element, newElement);
+        elements.push([element, newElement]);
       });
-      Object.assign(this.zoomState.applied, this.getZoomedOutState);
+
+      trans.on('end', () => {
+        elements.forEach((element) => {
+          Object.assign(element[0], element[1]);
+        })
+        Object.assign(this.zoomState.applied, this.getZoomedOutState);
+      })
     },
     onPaperMouseEnter(id) {
       // eslint-disable-next-line
