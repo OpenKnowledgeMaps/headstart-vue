@@ -8,6 +8,8 @@ export default {
     order: Number,
     area: String,
     hovered: Boolean,
+    zoomed: Boolean,
+    selected: Boolean,
   },
   computed: {
     translateString() {

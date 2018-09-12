@@ -1859,6 +1859,7 @@ export default {
       r: 35,
       order: 0,
       hovered: false,
+      selected: false,
       area: 'The Future of Learning',
     },
     {
@@ -1869,6 +1870,7 @@ export default {
       r: 35,
       order: 9,
       hovered: false,
+      selected: false,
       area: 'Technological Pedagogical Content Knowledge',
     },
     {
@@ -1879,6 +1881,7 @@ export default {
       r: 35,
       order: 18,
       hovered: false,
+      selected: false,
       area: 'Personal Learning Environment',
     },
     {
@@ -1889,6 +1892,7 @@ export default {
       r: 35,
       order: 24,
       hovered: false,
+      selected: false,
       area: 'Online Learning and Technology Adoption',
     },
     {
@@ -1899,6 +1903,7 @@ export default {
       r: 35,
       order: 30,
       hovered: false,
+      selected: false,
       area: 'Mobile Learning',
     },
     {
@@ -1909,6 +1914,7 @@ export default {
       r: 35,
       order: 33,
       hovered: false,
+      selected: false,      
       area: 'Meta Analysis',
     },
     {
@@ -1919,6 +1925,7 @@ export default {
       r: 35,
       order: 41,
       hovered: false,
+      selected: false,
       area: 'Instructional Design',
     },
     {
@@ -1929,6 +1936,7 @@ export default {
       r: 35,
       order: 47,
       hovered: false,
+      selected: false,
       area: 'Game-based Learning',
     },
     {
@@ -1939,6 +1947,7 @@ export default {
       r: 35,
       order: 55,
       hovered: false,
+      selected: false,
       area: 'Digital Natives',
     },
     {
@@ -1949,6 +1958,7 @@ export default {
       r: 35,
       order: 65,
       hovered: false,
+      selected: false,
       area: 'Design-based Research',
     },
     {
@@ -1959,6 +1969,7 @@ export default {
       r: 35,
       order: 76,
       hovered: false,
+      selected: false,
       area: 'Computer-supported Collaborative Learning',
     },
     {
@@ -1969,6 +1980,7 @@ export default {
       r: 35,
       order: 81,
       hovered: false,
+      selected: false,
       area: 'Community of Practice',
     },
     {
@@ -1979,6 +1991,7 @@ export default {
       r: 35,
       order: 85,
       hovered: false,
+      selected: false,
       area: 'Cognitive Models',
     },
   ],

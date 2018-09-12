@@ -16,6 +16,7 @@
             v-on:mouseLeave="onPaperMouseLeave"
             v-on:click="onPaperMouseClick"
             v-on:doubleClick="onPaperDoubleClick"
+            v-if="!zoomState.applied.zoomed"
           />
         </template>
         <template slot='bubble' v-if="paperOrBubble.type === 'bubble'">
@@ -25,6 +26,7 @@
             v-on:mouseLeave="onBubbleMouseLeave"
             v-on:click="onBubbleMouseClick"
             v-on:doubleClick="onBubbleDoubleClick"
+            :zoomed="zoomState.applied.zoomed"
           />
         </template>
       </SvgConditionalElement>
@@ -114,7 +116,8 @@ export default {
         trans.on('end', () => {
           console.log('mod state zoom');
           elements.forEach((element) => {
-            Object.assign(element[0], element[1]);
+            const selected = element[0].id === bubble.id ? {selected: true} : {selected: false}
+            Object.assign(element[0], element[1], selected);
           })
           Object.assign(this.zoomState.applied, zoomState);
         })
@@ -127,24 +130,27 @@ export default {
       this.doZoomOut();
     },
     doZoomOut() {
-      const prevBubble = this.zoomState.applied.bubble;
-      const applied = this.zoomState.applied;
+      this.zoomState.applied.zoomed = false;
+      setTimeout(() => {
+        const prevBubble = this.zoomState.applied.bubble;
+        const applied = this.zoomState.applied;
 
-      let trans = transition().duration(config.transitionDuration);
-      let elements = [];
+        let trans = transition().duration(config.transitionDuration);
+        let elements = [];
 
-      this.sortedPapersAndBubbles.forEach((element) => {
-        const newElement = resetPaperOrBubble(applied, element);
-        animateD3(trans, element, newElement);
-        elements.push([element, newElement]);
-      });
+        this.sortedPapersAndBubbles.forEach((element) => {
+          const newElement = resetPaperOrBubble(applied, element);
+          animateD3(trans, element, newElement);
+          elements.push([element, newElement]);
+        });
 
-      trans.on('end', () => {
-        elements.forEach((element) => {
-          Object.assign(element[0], element[1]);
+        trans.on('end', () => {
+          elements.forEach((element) => {
+            Object.assign(element[0], element[1], { selected: false });
+          })
+          Object.assign(this.zoomState.applied, this.getZoomedOutState);
         })
-        Object.assign(this.zoomState.applied, this.getZoomedOutState);
-      })
+      }, 0)
     },
     onPaperMouseEnter(id) {
       // eslint-disable-next-line
