@@ -37,6 +37,7 @@ import Chart from './templates/Chart.vue';
 import Paper from './templates/Paper.vue';
 import Bubble from './templates/Bubble.vue';
 import SvgConditionalElement from './templates/SvgConditionalElement.vue';
+import { resetPaperOrBubble, transformPaperOrBubble, setZoomState } from './js/zoomMath.js'
 
 import backendData from './js/backendFakeAPIData.js';
 import config from './js/config.js';
@@ -57,22 +58,29 @@ export default {
       },
       zoomState: {
         factor: 1,
+        bubble: {
+          x: 0,
+          y: 0,
+          r: 1
+        },
         centerPoint: {
           x: 0,
           y: 0,
         },
+        zoomed: false,
         applied: {
           bubble: {
             x: 0,
             y: 0,
+            r: config.svgWidth*0.5*0.5
           },
           centerPoint: {
             x: 0,
             y: 0,
           },
-          factor: 1
+          factor: 1,
+          zoomed: false
         },
-        zoomed: false,
       },
       papers: backendData.papers,
       bubbles: backendData.bubbles
@@ -91,86 +99,39 @@ export default {
       this.bubbles.find(bubble => bubble.id === id).hovered = false;
     },
     onBubbleMouseClick(id) {
-        this.zoomState.zoomed = true;
-        let bubble = this.bubbles.find(bubble => bubble.id === id);
-        this.resetZoomState();
-        this.setZoomStateFromBubble(this.getChartCenter, bubble.r, this.zoomedBubbleTargetRadius);
-        this.updateZoomState(bubble);
+      let bubble = this.bubbles.find(bubble => bubble.id === id);
+      this.doBubbleZoom(bubble);
     },
-    onRectMouseClick() {
-        console.log("rect clicked");
-        this.resetZoomState();
-    },
-    setZoomStateFromBubble(center, startRadius, targetRadius) {
-      this.zoomState.centerPoint = center;
-      // wrong zoomfactor if already zoomed
-      this.zoomState.factor = targetRadius/startRadius;
-      this.zoomState.zoomed = true;
-    },
-    resetZoomState() {
-      const { applied } = this.zoomState;
-      this.sortedPapersAndBubbles.forEach((paperOrBubble) => {
-        Object.assign(paperOrBubble, this.undoTransformation(
-          applied.bubble,
-          applied.centerPoint,
-          applied.factor,
-          paperOrBubble
-        ));
-        if (paperOrBubble.type === 'bubble') paperOrBubble.r = paperOrBubble.r/applied.factor;
-      });
-      this.zoomState.applied = {
-          bubble: {
-            x: 0,
-            y: 0,
-          },
-          centerPoint: {
-            x: 0,
-            y: 0,
-          },
-          factor: 1
-      }
-      console.log(this.zoomState.applied);
-    },
-    updateZoomState(bubble) {
-      const { factor, centerPoint } = this.zoomState;
-      const { applied } = this.zoomState;
-      const tmpBubble = {
-        x: bubble.x,
-        y: bubble.y
-      }
+    doBubbleZoom(bubble) {
+        const applied = this.zoomState.applied;
+        const prevBubble = applied.bubble;
 
-      this.sortedPapersAndBubbles.forEach((paperOrBubble) => {
-        // apply the new transformation
-        Object.assign(paperOrBubble, this.applyTransformation(bubble, centerPoint, factor, paperOrBubble));
-        if (paperOrBubble.type === 'bubble') paperOrBubble.r *= factor;
-      });
+        const originBubble = resetPaperOrBubble(applied, bubble);
+        const zoomState = setZoomState(originBubble, this.getChartCenter, originBubble.r, prevBubble.r);
 
-      this.zoomState.applied = {
-          bubble: {
-            x: tmpBubble.x,
-            y: tmpBubble.y,
-          },
-          centerPoint: {
-            x: centerPoint.x,
-            y: centerPoint.y,
-          },
-          factor: factor
-      }
-      console.log(this.zoomState.applied);
-    },
-    undoTransformation(selectedBubbleCoords, referenceCoords, factor, bubble) {
-      return {
-        x: (bubble.x - referenceCoords.x)/factor + selectedBubbleCoords.x,
-        y: (bubble.y - referenceCoords.y)/factor + selectedBubbleCoords.y,
-      }
-    },
-    applyTransformation(selectedBubbleCoords, referenceCoords, factor, bubble) {
-      return { 
-        x: referenceCoords.x + (bubble.x - selectedBubbleCoords.x)*factor,
-        y: referenceCoords.y + (bubble.y - selectedBubbleCoords.y)*factor }
+        this.sortedPapersAndBubbles.forEach((bbl) => {
+          Object.assign(bbl, 
+            transformPaperOrBubble(zoomState, resetPaperOrBubble(applied, bbl)));
+        });
+        Object.assign(this.zoomState.applied, zoomState);
+        console.log(this.zoomState.applied);
     },
     onBubbleDoubleClick(id) {
       console.log(`Doubleclicked bubble ${id} - not implemented yet`);
+    },
+    onRectMouseClick() {
+      console.log("rect clicked");
+      this.doZoomOut();
+    },
+    doZoomOut() {
+      const prevBubble = this.zoomState.applied.bubble;
+      const applied = this.zoomState.applied;
+
+      this.sortedPapersAndBubbles.forEach((bbl) => {
+        Object.assign(bbl, resetPaperOrBubble(applied, bbl));
+      });
+      Object.assign(this.zoomState.applied, this.getZoomedOutState);
+      console.log(this.zoomState.applied);
     },
     onPaperMouseEnter(id) {
       // eslint-disable-next-line
@@ -198,6 +159,21 @@ export default {
     },
     getChartCenter() {
       return { x: this.chartDimensions.width*0.5, y: this.chartDimensions.height*0.5};
+    },
+    getZoomedOutState() {
+      return {
+          bubble: {
+            x: 0,
+            y: 0,
+            r: config.svgWidth*0.5*0.5
+          },
+          centerPoint: {
+            x: 0,
+            y: 0,
+          },
+          factor: 1,
+          zoomed: false
+        }
     }
   },
 };

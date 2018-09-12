@@ -12,8 +12,9 @@ function applyZoomInTransformation({ bubble, centerPoint, factor }, paperOrBubbl
   };
 }
 
-function setZoomState(center, startRadius, targetRadius) {
+function setZoomState(bubble, center, startRadius, targetRadius) {
   return {
+    bubble,
     centerPoint: center,
     factor: targetRadius / startRadius,
     zoomed: true,
@@ -36,11 +37,4 @@ function transformPaperOrBubble(zoomState, paperOrBubble) {
   return result;
 }
 
-function doZoomEvent() {
-  // get previous bubble
-  // get clicked bubble
-  // reset clicked bubble
-  // setZoomState from previous bubble, clicked bubble
-  // reset all bubbles
-  // transform all bubbles
-}
+export { resetPaperOrBubble, transformPaperOrBubble, setZoomState };
