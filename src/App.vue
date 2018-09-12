@@ -93,6 +93,7 @@ export default {
     onBubbleMouseClick(id) {
         this.zoomState.zoomed = true;
         let bubble = this.bubbles.find(bubble => bubble.id === id);
+        this.resetZoomState();
         this.setZoomStateFromBubble(this.getChartCenter, bubble.r, this.zoomedBubbleTargetRadius);
         this.updateZoomState(bubble);
     },
@@ -115,7 +116,7 @@ export default {
           applied.factor,
           paperOrBubble
         ));
-        // if (paperOrBubble.type === 'bubble') paperOrBubble.r = paperOrBubble.r/applied.factor;
+        if (paperOrBubble.type === 'bubble') paperOrBubble.r = paperOrBubble.r/applied.factor;
       });
       this.zoomState.applied = {
           bubble: {
@@ -137,7 +138,6 @@ export default {
         x: bubble.x,
         y: bubble.y
       }
-      this.resetZoomState();
 
       this.sortedPapersAndBubbles.forEach((paperOrBubble) => {
         // apply the new transformation
