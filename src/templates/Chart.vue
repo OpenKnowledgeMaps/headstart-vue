@@ -15,6 +15,7 @@
                                 class="zoomed_out"
                                 x="0"
                                 y="0"
+                                @click="$emit('click')"
                         ></rect>
                         <slot></slot>
                     </g>

@@ -7,10 +7,10 @@
         :id="'paper' + id"
         :transform="translateString"
         style="display: block;"
-        @mouseover="$emit('mouseEnter', bubbleId)"
-        @mouseout="$emit('mouseLeave', bubbleId)"
-        @click="$emit('click', bubbleId)"
-        @dblclick.prevent="$emit('doubleClick', bubbleId)"
+        @mouseover="$emit('mouseEnter', id)"
+        @mouseout="$emit('mouseLeave', id)"
+        @click="$emit('click', id)"
+        @dblclick.prevent="$emit('doubleClick', id)"
 >
 
     <path
@@ -28,10 +28,10 @@
             class="paperContent"
             :width="w"
             :height="h"
-            @mouseover="$emit('mouseEnter', bubbleId)"
-            @mouseout="$emit('mouseLeave', bubbleId)"
-            @click="$emit('click', bubbleId)"
-            @dblclick.prevent="$emit('doubleClick', bubbleId)"
+            @mouseover="$emit('mouseEnter', id)"
+            @mouseout="$emit('mouseLeave', id)"
+            @click="$emit('click', id)"
+            @dblclick.prevent="$emit('doubleClick', id)"
     >
         <body>
             <div class="paper_holder">
